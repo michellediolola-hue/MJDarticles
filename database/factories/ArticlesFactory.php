@@ -2,21 +2,31 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Article;
+use App\Models\User;
+Use Illuminate\Database\Eloquent\Fatories\Factory
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\articles>
- */
-class ArticlesFactory extends Factory
+class ArticleFactory extends Factory;
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    protected $model = Article::class;
     {
-        return [
+        public function definition(): array
+        {
+            return [
+                'title' => facke()->sentence(),
+                'content' =>fake()->paragraphs(3, true),
+                'published' => fake()->boolean(),
+                'author_id' => fake()->numberBetween(1,10),
+            ];
+        }
+    }       
+            ]
+        }
+    }
+}
+
+{
+    
             //
         ];
     }

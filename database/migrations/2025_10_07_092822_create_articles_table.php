@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('articles', function (Blueprint $table) {
-            $table->id();
+        Schema::create('articles', function (illuminate/database/Schema/Blueprint $table) {
+            $table->foreignid('author_id');
             $table->timestamps();
         });
     }

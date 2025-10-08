@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class articles extends Model
 {
-    /** @use HasFactory<\Database\Factories\ArticlesFactory> */
+    
     use HasFactory;
-}
+}public function author()
+{
+return $this->belongsTo(User::class, 'author_id') ;
