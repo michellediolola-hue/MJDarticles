@@ -2,24 +2,31 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Article;
+use App\Models\Author;
+use App\Models\Comment;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // Generate first 10 Users
-        \App\Models\User::factory(10)->create();
+        // First, create some authors
+        Author::factory(5)->create()->each(function ($author) {
+            // For each author, create articles
+            $articles = Article::factory(3)->create([
+                'author_id' => $author->id,
+            ]);
 
-        // and then 20 articles
-        \App\Models\Article::factory(20)->create();
+            // For each article, create comments
+            $articles->each(function ($article) {
+                Comment::factory(2)->create([
+                    'article_id' => $article->id,
+                ]);
+            });
+        });
     }
 }
 
-        
+      
    
