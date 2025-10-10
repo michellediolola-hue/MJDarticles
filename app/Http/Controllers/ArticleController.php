@@ -9,16 +9,10 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        // Load all articles with their authors and comments
-        $articles = Article::with(['author', 'comments'])->get();
+        // Load articles with their author (comments removed for now)
+        $articles = Article::with('author')->get();
 
         return view('articles.index', compact('articles'));
     }
-
-    public function show($id)
-    {
-        $article = Article::with(['author', 'comments'])->findOrFail($id);
-
-        return view('articles.show', compact('article'));
-    }
 }
+
