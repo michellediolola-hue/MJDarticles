@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
 
         // and then 20 articles
         \App\Models\Article::factory(20)->create();
+    }
+}
 
         
    

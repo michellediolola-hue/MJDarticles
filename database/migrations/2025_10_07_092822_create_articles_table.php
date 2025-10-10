@@ -11,17 +11,28 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('articles', function (illuminate/database/Schema/Blueprint $table) {
-            $table->foreignid('author_id');
+        Schema::create('articles', function (Blueprint $table) {
+            $table->id();
+
+            $table->string('title');
+            $table->text('content');
+            $table->boolean('published')->default(false);
+            $table->foreignId('author_id');
+
             $table->timestamps();
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migrations
      */
     public function down(): void
     {
         Schema::dropIfExists('articles');
     }
 };
+     
+
+    
+
+            
