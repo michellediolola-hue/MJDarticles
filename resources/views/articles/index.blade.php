@@ -1,27 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Articles</title>
-</head>
-<body>
-    <h1>Articles</h1>
+@extends('layouts.app')
+
+@section('title', 'Articles')
+
+@section('content')
+    <h1>📰 Articles</h1>
 
     @foreach($articles as $article)
-        <div style="margin-bottom: 30px;">
+        <div style="margin-bottom: 30px; border-bottom: 1px solid #ddd; padding-bottom: 20px;">
             <h2>{{ $article->title }}</h2>
             <p><strong>Author:</strong> {{ $article->author->name ?? 'Unknown' }}</p>
             <p>{{ $article->content }}</p>
 
             <h4>Comments:</h4>
             @forelse($article->comments as $comment)
-                <p>💬 {{ $comment->author_name }}: {{ $comment->content }}</p>
+                <p>💬 <strong>{{ $comment->author_name }}</strong>: {{ $comment->content }}</p>
             @empty
-                <p>No comments yet.</p>
+                <p><em>No comments yet.</em></p>
             @endforelse
         </div>
     @endforeach
+@endsection
 
-</body>
-</html>
 
