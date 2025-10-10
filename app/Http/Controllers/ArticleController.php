@@ -9,8 +9,7 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $aricles = \App\Models\Article::with('author', 'comments')->get();
-        return view('articles.index', compact(articles));
+        $articles = Article::with(['author', 'comments'])->get();
+        return view('articles.index', compact('articles'));
     }
 }
-
