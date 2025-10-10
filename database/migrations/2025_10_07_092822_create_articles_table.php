@@ -11,27 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('articles', function (Illuminate\Database\Schema\Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-
-            $table->string('title');
+            $table->foreignId('article_id')->constrained('articles')->cascadeOnDelete();
+            $table->string('author_name');
             $table->text('content');
-            $table->boolean('published')->default(false);
-            $table->foreignId('author_id');
-
             $table->timestamps();
         });
     }
-}
-  
-/**
+
+    /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('authors');
+        Schema::dropIfExists('comments');
     }
 };
+
 
     
 
