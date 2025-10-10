@@ -11,50 +11,41 @@ class ArticleSeeder extends Seeder
 {
     public function run(): void
     {
-        // Create some authors
-        $authors = [
-            ['name' => 'John Grace', 'email' => 'john@example.com'],
-            ['name' => 'Emily Faith', 'email' => 'emily@example.com'],
-            ['name' => 'Liam Hope', 'email' => 'liam@example.com'],
-        ];
+        $author = Author::firstOrCreate(
+            ['email' => 'john@example.com'],
+            ['name' => 'John Grace']
+        );
 
-        foreach ($authors as $data) {
-            Author::firstOrCreate(['email' => $data['email']], $data);
-        }
-
-        // Create articles about life, faith, and mentality
         $articles = [
             [
-                'author_id' => 1,
-                'title' => 'Finding Peace in Simplicity',
-                'content' => 'True peace is found when we stop chasing everything and start appreciating what we already have. Simplicity teaches gratitude, focus, and inner strength.',
+                'title' => 'Finding Peace in a Busy World',
+                'content' => 'In the rush of modern life, peace is not found in noise or success, but in stillness and gratitude. Learn to breathe and appreciate quiet moments.',
             ],
             [
-                'author_id' => 2,
-                'title' => 'Faith Over Fear',
-                'content' => 'Faith is not about ignoring fear, but moving forward in spite of it. When you trust the process, even uncertainty becomes a teacher.',
+                'title' => 'Faith Beyond Fear',
+                'content' => 'True faith is not the absence of fear but the courage to trust despite it. When we walk by faith, we see light even in uncertainty.',
             ],
             [
-                'author_id' => 3,
-                'title' => 'A Calm Mind is a Strong Mind',
-                'content' => 'Your mindset shapes your world. Learn to breathe, pause, and respond with clarity — not reaction. Calmness is power.',
+                'title' => 'The Power of a Positive Mind',
+                'content' => 'Our thoughts shape our reality. Choosing kindness, gratitude, and optimism helps us build strength and joy even during challenges.',
+            ],
+            [
+                'title' => 'Letting Go and Moving Forward',
+                'content' => 'Healing begins when we let go of resentment and make peace with our past. Growth starts in acceptance and forgiveness.',
             ],
         ];
 
-        foreach ($articles as $data) {
-            $article = Article::firstOrCreate(['title' => $data['title']], $data);
-
-            // Add some comments
-            Comment::create([
-                'article_id' => $article->id,
-                'author_name' => 'Reader1',
-                'content' => 'This really spoke to me. Thank you for sharing!',
+        foreach ($articles as $articleData) {
+            $article = Article::create([
+                'author_id' => $author->id,
+                'title' => $articleData['title'],
+                'content' => $articleData['content'],
             ]);
 
             Comment::create([
                 'article_id' => $article->id,
-                'author_name' => 'Mia',
-                'content' => 'Beautiful words — I needed this reminder today.',
+                'author_name' => 'Reader',
+                'content' => 'This article gave me something to think about today. Thank you!',
             ]);
         }
     }
