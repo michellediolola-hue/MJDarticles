@@ -3,50 +3,57 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Author;
 use App\Models\Article;
+use App\Models\Author;
 use App\Models\Comment;
 
 class ArticleSeeder extends Seeder
 {
     public function run(): void
     {
-        $author = Author::firstOrCreate(
-            ['email' => 'john@example.com'],
-            ['name' => 'John Grace']
-        );
-
-        $articles = [
-            [
-                'title' => 'Finding Peace in a Busy World',
-                'content' => 'In the rush of modern life, peace is not found in noise or success, but in stillness and gratitude. Learn to breathe and appreciate quiet moments.',
-            ],
-            [
-                'title' => 'Faith Beyond Fear',
-                'content' => 'True faith is not the absence of fear but the courage to trust despite it. When we walk by faith, we see light even in uncertainty.',
-            ],
-            [
-                'title' => 'The Power of a Positive Mind',
-                'content' => 'Our thoughts shape our reality. Choosing kindness, gratitude, and optimism helps us build strength and joy even during challenges.',
-            ],
-            [
-                'title' => 'Letting Go and Moving Forward',
-                'content' => 'Healing begins when we let go of resentment and make peace with our past. Growth starts in acceptance and forgiveness.',
-            ],
+        $authors = [
+            ['name' => 'John Grace', 'email' => 'john@example.com'],
+            ['name' => 'Sophia Rivers', 'email' => 'sophia@example.com'],
+            ['name' => 'Ethan Wells', 'email' => 'ethan@example.com'],
         ];
 
-        foreach ($articles as $articleData) {
-            $article = Article::create([
-                'author_id' => $author->id,
-                'title' => $articleData['title'],
-                'content' => $articleData['content'],
-            ]);
+        foreach ($authors as $authorData) {
+            $author = Author::firstOrCreate(['email' => $authorData['email']], ['name' => $authorData['name']]);
 
-            Comment::create([
-                'article_id' => $article->id,
-                'author_name' => 'Reader',
-                'content' => 'This article gave me something to think about today. Thank you!',
-            ]);
+            $articles = [
+                [
+                    'title' => 'Finding Peace in a Busy World',
+                    'content' => 'In a world that never stops moving, true peace begins when we pause to listen to our heart and trust in something greater than ourselves.',
+                ],
+                [
+                    'title' => 'Faith Over Fear',
+                    'content' => 'Fear limits our potential, but faith gives us the courage to step into the unknown with confidence and purpose.',
+                ],
+                [
+                    'title' => 'The Power of Positive Thinking',
+                    'content' => 'Our thoughts shape our reality. By focusing on gratitude and optimism, we can transform our daily lives.',
+                ],
+            ];
+
+            foreach ($articles as $articleData) {
+                $article = Article::create([
+                    'title' => $articleData['title'],
+                    'content' => $articleData['content'],
+                    'author_id' => $author->id,
+                ]);
+
+                Comment::create([
+                    'article_id' => $article->id,
+                    'author_name' => 'Emily',
+                    'content' => 'Beautifully written and very inspiring!',
+                ]);
+
+                Comment::create([
+                    'article_id' => $article->id,
+                    'author_name' => 'Michael',
+                    'content' => 'This really made me think differently about life. Thank you.',
+                ]);
+            }
         }
     }
 }
