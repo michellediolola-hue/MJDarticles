@@ -9,10 +9,8 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        // Load articles with their author (comments removed for now)
-        $articles = Article::with('author')->get();
-
-        return view('articles.index', compact('articles'));
+        $aricles = \App\Models\Article::with('author', 'comments')->get();
+        return view('articles.index', compact(articles));
     }
 }
 
