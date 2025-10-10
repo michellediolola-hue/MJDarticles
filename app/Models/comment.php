@@ -11,6 +11,7 @@ class Comment extends Model
 
     protected $fillable = ['article_id', 'author_name', 'content'];
 
+    // ✅ Each comment belongs to one article
     public function article()
     {
         return $this->belongsTo(Article::class);
